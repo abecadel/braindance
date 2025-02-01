@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  analyser:
+    build:
+      context: analyser
+    ports:
+      - 8099:80
+
+  reconstructer:
+    build:
+      context: reconstructer
+    shm_size: '8gb'
+    ports:
+      - 8100:80
