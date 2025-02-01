@@ -41,7 +41,7 @@ RUN cd InstantSplat && \
 RUN cd InstantSplat/croco/models/curope/ && \
     python3 setup.py build_ext --inplace
 
-RUN pip3 install --break-system-packages gradio fastapi
+RUN pip3 install --break-system-packages gradio fastapi plyfile open3d
 
 EXPOSE 80
 #ENTRYPOINT python3 src/app.py
