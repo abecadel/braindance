@@ -20,4 +20,4 @@ RUN apt-get update && \
 
 RUN pip3 install --break-system-packages torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 
-RUN pip3 git+https://github.com/huggingface/transformers accelerate qwen-vl-utils[decord]==0.0.8 fastapi gradio
+RUN pip3 install --break-system-packages git+https://github.com/huggingface/transformers accelerate qwen-vl-utils[decord]==0.0.8 fastapi gradio
