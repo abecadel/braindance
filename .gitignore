@@ -1,2 +1,5 @@
 .idea
 .env
+.gradio
+.next
+node_modules
