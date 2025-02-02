@@ -57,9 +57,8 @@ WORKDIR /app/InstantSplat
 RUN pip3 install --break-system-packages -r requirements.txt && \
     pip3 install --break-system-packages submodules/simple-knn && \
     pip3 install --break-system-packages submodules/diff-gaussian-rasterization && \
-    pip3 install --break-system-packages submodules/fused-ssim \
-
-RUN cd croco/models/curope/ &&\
+    pip3 install --break-system-packages submodules/fused-ssim && \
+    cd croco/models/curope/ && \
     python3 setup.py build_ext --inplace
 
 
