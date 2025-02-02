@@ -61,3 +61,6 @@ RUN cd croco/models/curope/ &&\
     python3 setup.py build_ext --inplace
 
 RUN pip3 install --break-system-packages flash-attn --no-build-isolation
+
+COPY preload.py .
+RUN python3 preload.py
