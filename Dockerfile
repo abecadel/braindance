@@ -45,7 +45,7 @@ RUN pip3 install --break-system-packages -U \
     open3d \
     plyfile
 
-#RUN pip3 install --break-system-packages flash-attn --no-build-isolation
+RUN pip3 install --break-system-packages flash-attn --no-build-isolation
 
 COPY dependencies dependencies
 
