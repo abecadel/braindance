@@ -63,7 +63,7 @@ RUN cd dependencies/InstantSplat/ && \
 
 
 COPY preload.py .
-RUN python3 preload.py
+#RUN python3 preload.py
 
 COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
