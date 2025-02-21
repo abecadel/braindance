@@ -67,3 +67,4 @@ COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
 COPY preload.py .
 COPY download_models.sh .
+COPY src src
