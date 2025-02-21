@@ -1,2 +1,5 @@
 rerun-sdk
 gradio
+transformers
+diffusers
+gsplat
