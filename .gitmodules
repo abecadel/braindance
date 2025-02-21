@@ -1,0 +1,6 @@
+[submodule "dependencies/InstantSplat"]
+	path = dependencies/InstantSplat
+	url = https://github.com/NVlabs/InstantSplat.git
+[submodule "dependencies/acezero"]
+	path = dependencies/acezero
+	url = https://github.com/nianticlabs/acezero.git
