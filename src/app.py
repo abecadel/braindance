@@ -23,7 +23,7 @@ max_pixels = 1280*28*28
 # processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct", min_pixels=min_pixels, max_pixels=max_pixels)
 
 
-def infer(messages, history):
+# def infer(messages, history):
     # Messages containing a images list as a video and a text query
     # messages = [
     #     {
@@ -75,50 +75,33 @@ def infer(messages, history):
 
     # In Qwen 2.5 VL, frame rate information is also input into the model to align with absolute time.
     # Preparation for inference
-    text = processor.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
-    )
-    image_inputs, video_inputs, video_kwargs = process_vision_info(messages, return_video_kwargs=True)
-    inputs = processor(
-        text=[text],
-        images=image_inputs,
-        videos=video_inputs,
-        fps=fps,
-        padding=True,
-        return_tensors="pt",
-        **video_kwargs,
-    )
-    inputs = inputs.to("cuda")
+    # text = processor.apply_chat_template(
+    #     messages, tokenize=False, add_generation_prompt=True
+    # )
+    # image_inputs, video_inputs, video_kwargs = process_vision_info(messages, return_video_kwargs=True)
+    # inputs = processor(
+    #     text=[text],
+    #     images=image_inputs,
+    #     videos=video_inputs,
+    #     fps=fps,
+    #     padding=True,
+    #     return_tensors="pt",
+    #     **video_kwargs,
+    # )
+    # inputs = inputs.to("cuda")
+    #
+    # # Inference
+    # generated_ids = model.generate(**inputs, max_new_tokens=128)
+    # generated_ids_trimmed = [
+    #     out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+    # ]
+    # output_text = processor.batch_decode(
+    #     generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+    # )
+    #
+    # return
 
-    # Inference
-    generated_ids = model.generate(**inputs, max_new_tokens=128)
-    generated_ids_trimmed = [
-        out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-    ]
-    output_text = processor.batch_decode(
-        generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-    )
 
-    return
-
-
-def count_images(message, history):
-    num_images = len(message["files"])
-    total_images = 0
-    for message in history:
-        if isinstance(message["content"], tuple):
-            total_images += 1
-    return f"You just uploaded {num_images} images, total uploaded: {total_images+num_images}"
-
-demo = gr.ChatInterface(
-    fn=count_images,
-    type="messages",
-    examples=[
-        {"text": "No files", "files": []}
-    ],
-    multimodal=True,
-    textbox=gr.MultimodalTextbox(file_count="multiple", file_types=["video"], sources=["upload", "microphone"])
-)
 
 if __name__ == "__main__":
     demo.launch(share=True)
