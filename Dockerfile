@@ -49,9 +49,6 @@ RUN pip3 install --break-system-packages flash-attn --no-build-isolation
 
 COPY dependencies dependencies
 
-#RUN cd dependencies/InstantSplat && \
-#    mkdir -p mast3r/checkpoints/ && \
-#    wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth -P mast3r/checkpoints/
 
 RUN cd dependencies/InstantSplat/ && \
     pip3 install --break-system-packages -r requirements.txt && \
@@ -61,9 +58,12 @@ RUN cd dependencies/InstantSplat/ && \
     cd croco/models/curope/ && \
     python3 setup.py build_ext --inplace
 
-
-COPY preload.py .
 #RUN python3 preload.py
+#RUN cd dependencies/InstantSplat && \
+#    mkdir -p mast3r/checkpoints/ && \
+#    wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth -P mast3r/checkpoints/
 
 COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
+COPY preload.py .
+COPY download_models.sh .
