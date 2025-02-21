@@ -45,16 +45,16 @@ RUN pip3 install --break-system-packages -U \
     open3d \
     plyfile
 
-RUN pip3 install --break-system-packages flash-attn --no-build-isolation
+#RUN pip3 install --break-system-packages flash-attn --no-build-isolation
 
+COPY dependencies dependencies
 
-RUN git clone --recursive https://github.com/NVlabs/InstantSplat.git && \
-    cd InstantSplat && \
+RUN cd dependencies/InstantSplat && \
     mkdir -p mast3r/checkpoints/ && \
     wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth -P mast3r/checkpoints/
 
-WORKDIR /app/InstantSplat
-RUN pip3 install --break-system-packages -r requirements.txt && \
+RUN cd dependencies/InstantSplat/ && \
+    pip3 install --break-system-packages -r requirements.txt && \
     pip3 install --break-system-packages submodules/simple-knn && \
     pip3 install --break-system-packages submodules/diff-gaussian-rasterization && \
     pip3 install --break-system-packages submodules/fused-ssim && \
@@ -64,3 +64,6 @@ RUN pip3 install --break-system-packages -r requirements.txt && \
 
 COPY preload.py .
 RUN python3 preload.py
+
+COPY requirements.txt .
+RUN pip3 install --break-system-packages -r requirements.txt
