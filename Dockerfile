@@ -29,6 +29,7 @@ RUN apt-get update && \
         unzip \
         libgl1-mesa-dev \
         libglib2.0-0 \
+        libopencv-dev \
 && apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/* \
 && apt-get clean \
@@ -61,7 +62,7 @@ COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
 
 RUN cd dependencies/acezero/dsacstar && \
-    CONDA_PREFIX="" python3 setup.py install
+    CONDA_PREFIX="/usr" python3 setup.py install
 
 COPY preload.py .
 COPY download_models.sh .

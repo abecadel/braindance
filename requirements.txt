@@ -3,7 +3,7 @@ diffusers
 pandas
 numpy
 roma
-timm
+timm==0.6.7
 pycolmap
 pyyaml
 open3d
