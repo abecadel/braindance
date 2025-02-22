@@ -102,6 +102,14 @@ max_pixels = 1280*28*28
     # return
 
 
+with gr.Blocks() as demo:
+    name = gr.Textbox(label="Name")
+    output = gr.Textbox(label="Output Box")
+    greet_btn = gr.Button("Greet")
+
+    @greet_btn.click(inputs=name, outputs=output)
+    def greet(name):
+        return "Hello " + name + "!"
 
 if __name__ == "__main__":
-    demo.launch(share=True)
+    demo.launch(server_name='0.0.0.0')
