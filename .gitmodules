@@ -1,6 +1,9 @@
-[submodule "dependencies/InstantSplat"]
-	path = dependencies/InstantSplat
-	url = https://github.com/NVlabs/InstantSplat.git
-[submodule "dependencies/acezero"]
-	path = dependencies/acezero
-	url = https://github.com/nianticlabs/acezero.git
+[submodule "dependencies/gradio-rerun-viewer"]
+	path = dependencies/gradio-rerun-viewer
+	url = https://github.com/pablovela5620/gradio-rerun-viewer.git
+[submodule "dependencies/gsplat"]
+	path = dependencies/gsplat
+	url = https://github.com/nerfstudio-project/gsplat.git
+[submodule "dependencies/Video-Depth-Anything"]
+	path = dependencies/Video-Depth-Anything
+	url = https://github.com/DepthAnything/Video-Depth-Anything

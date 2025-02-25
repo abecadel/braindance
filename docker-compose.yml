@@ -6,4 +6,4 @@ services:
       context: .
     shm_size: '8gb'
     ports:
-      - 8099:80
+      - 7860:7860

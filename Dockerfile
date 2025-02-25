@@ -29,41 +29,21 @@ RUN apt-get update && \
         unzip \
         libgl1-mesa-dev \
         libglib2.0-0 \
+        libopencv-dev \
+        colmap \
 && apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/* \
 && apt-get clean \
 && rm -rf /tmp/tmp* \
 && rm -iRf /root/.cache
 
-
-RUN pip3 install --break-system-packages git+https://github.com/huggingface/transformers accelerate qwen-vl-utils[decord]==0.0.8 fastapi gradio
-RUN pip3 install --break-system-packages -U \
-    gradio \
-    packaging \
-    ninja \
-    setuptools \
-    open3d \
-    plyfile
-
-RUN pip3 install --break-system-packages flash-attn --no-build-isolation
-
 COPY dependencies dependencies
-
-#RUN cd dependencies/InstantSplat && \
-#    mkdir -p mast3r/checkpoints/ && \
-#    wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth -P mast3r/checkpoints/
-
-RUN cd dependencies/InstantSplat/ && \
-    pip3 install --break-system-packages -r requirements.txt && \
-    pip3 install --break-system-packages submodules/simple-knn && \
-    pip3 install --break-system-packages submodules/diff-gaussian-rasterization && \
-    pip3 install --break-system-packages submodules/fused-ssim && \
-    cd croco/models/curope/ && \
-    python3 setup.py build_ext --inplace
-
-
-COPY preload.py .
-#RUN python3 preload.py
 
 COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
+
+RUN cd dependencies/gradio-rerun-viewer && pip install .
+
+COPY preload.py .
+COPY download_models.sh .
+COPY src src
