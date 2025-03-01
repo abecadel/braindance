@@ -1,9 +1,9 @@
 [submodule "dependencies/gradio-rerun-viewer"]
 	path = dependencies/gradio-rerun-viewer
 	url = https://github.com/pablovela5620/gradio-rerun-viewer.git
-[submodule "dependencies/gsplat"]
-	path = dependencies/gsplat
-	url = https://github.com/nerfstudio-project/gsplat.git
 [submodule "dependencies/Video-Depth-Anything"]
 	path = dependencies/Video-Depth-Anything
 	url = https://github.com/DepthAnything/Video-Depth-Anything
+[submodule "dependencies/mega-sam"]
+	path = dependencies/mega-sam
+	url = https://github.com/mega-sam/mega-sam

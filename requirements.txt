@@ -28,3 +28,9 @@ git+https://github.com/rahul-goel/fused-ssim
 plyfile
 open3d
 setuptools
+scipy
+ninja
+timm
+huggingface-hub
+kornia
+torch-scatter

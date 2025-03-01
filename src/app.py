@@ -11,6 +11,13 @@ import gc
 import os
 import sys
 
+import rerun as rr
+import numpy as np
+
+import cv2
+import rerun as rr
+from PIL import Image
+
 import gradio as gr
 import numpy as np
 import torch
@@ -25,6 +32,32 @@ from utils.dc_utils import read_video_frames, save_video
 from video_depth_anything.video_depth import VideoDepthAnything
 
 sys.path.insert(1, "dependencies/Video-Depth-Anything/")
+
+
+def init_video_depth_predictor(encoder):
+    DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    model_configs = {
+        "vits": {"encoder": "vits", "features": 64, "out_channels": [48, 96, 192, 384]},
+        "vitl": {
+            "encoder": "vitl",
+            "features": 256,
+            "out_channels": [256, 512, 1024, 1024],
+        },
+    }
+
+    video_depth_anything = VideoDepthAnything(**model_configs[encoder])
+    video_depth_anything.load_state_dict(
+        torch.load(
+            f"./checkpoints/video_depth_anything_{encoder}.pth", map_location="cpu"
+        ),
+        strict=True,
+    )
+    video_depth_anything = video_depth_anything.to(DEVICE).eval()
+    return video_depth_anything
+
+
+if gr.NO_RELOAD:
+    video_depth_anything = init_video_depth_predictor(encoder="vits")
 
 # default: Load the model on the available device(s)
 # model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
@@ -130,30 +163,12 @@ def process_video_depth(
 ):
 
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-    model_configs = {
-        "vits": {"encoder": "vits", "features": 64, "out_channels": [48, 96, 192, 384]},
-        "vitl": {
-            "encoder": "vitl",
-            "features": 256,
-            "out_channels": [256, 512, 1024, 1024],
-        },
-    }
-
-    video_depth_anything = VideoDepthAnything(**model_configs[encoder])
-    video_depth_anything.load_state_dict(
-        torch.load(
-            f"./checkpoints/video_depth_anything_{encoder}.pth", map_location="cpu"
-        ),
-        strict=True,
-    )
-    video_depth_anything = video_depth_anything.to(DEVICE).eval()
 
     frames, target_fps = read_video_frames(input_video, max_len, target_fps, max_res)
     depths, fps = video_depth_anything.infer_video_depth(
         frames, target_fps, device=DEVICE
     )
 
-    video_name = os.path.basename(input_video)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
@@ -162,9 +177,6 @@ def process_video_depth(
 
     depth_npz_path = os.path.join(output_dir, "depths.npz")
     np.savez_compressed(depth_npz_path, depths=depths)
-
-    torch.cuda.empty_cache()
-    gc.collect()
 
     return frames, depths
 
