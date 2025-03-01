@@ -34,3 +34,4 @@ timm
 huggingface-hub
 kornia
 torch-scatter
+git+https://github.com/facebookresearch/xformers.git@main#egg=xformers

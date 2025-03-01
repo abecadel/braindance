@@ -41,7 +41,6 @@ COPY dependencies dependencies
 
 COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
-RUN pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126
 
 RUN cd dependencies/gradio-rerun-viewer && pip install .
 RUN cd dependencies/mega-sam/base && python setup.py install
