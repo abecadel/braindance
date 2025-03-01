@@ -27,9 +27,9 @@ plyfile
 open3d
 setuptools
 scipy
-ninja
 timm
 huggingface-hub
 kornia
 torch-scatter
-git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
+ninja
+xformers==0.0.29

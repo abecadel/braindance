@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel as builder
+FROM nvidia/cuda:12.6.0-cudnn-devel-ubuntu24.04 as builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -31,11 +31,16 @@ RUN apt-get update && \
         libglib2.0-0 \
         libopencv-dev \
         colmap \
+        python3 \
+        python3-pip \
+        python3-packaging \
 && apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/* \
 && apt-get clean \
 && rm -rf /tmp/tmp* \
 && rm -iRf /root/.cache
+
+RUN pip3 install --break-system-packages torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu124
 
 COPY dependencies dependencies
 
