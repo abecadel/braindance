@@ -23,7 +23,6 @@ tensorboard
 tensorly
 pyyaml
 matplotlib
-git+https://github.com/rahul-goel/fused-ssim
 plyfile
 open3d
 setuptools
