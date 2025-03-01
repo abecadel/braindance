@@ -49,6 +49,7 @@ COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
 
 RUN cd dependencies/gradio-rerun-viewer && pip install --break-system-packages .
+RUN cd dependencies/UniDepth/unidepth/ops/knn/ && python3 setup.py install
 RUN cd dependencies/mega-sam/base && python3 setup.py install
 
 COPY preload.py .

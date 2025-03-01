@@ -28,10 +28,12 @@ from transformers import (
     AutoTokenizer,
     Qwen2_5_VLForConditionalGeneration,
 )
+sys.path.insert(1, "dependencies/Video-Depth-Anything/")
+sys.path.insert(1, "dependencies/UniDepth/")
+
 from utils.dc_utils import read_video_frames, save_video
 from video_depth_anything.video_depth import VideoDepthAnything
 
-sys.path.insert(1, "dependencies/Video-Depth-Anything/")
 
 
 def init_video_depth_predictor(encoder):
