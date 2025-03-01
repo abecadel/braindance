@@ -3,7 +3,6 @@ rerun-sdk
 imageio
 imageio[ffmpeg]
 decord
-xformers
 einops
 easydict
 tqdm
