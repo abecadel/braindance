@@ -1,5 +1,9 @@
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
 import torch
+from transformers import (
+    AutoProcessor,
+    AutoTokenizer,
+    Qwen2_5_VLForConditionalGeneration,
+)
 
 # unsloth/Qwen2-VL-7B-Instruct
 # "Qwen/Qwen2.5-VL-7B-Instruct",
@@ -12,8 +16,10 @@ try:
         device_map="auto",
     )
 
-    min_pixels = 256*28*28
-    max_pixels = 1280*28*28
-    processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct", min_pixels=min_pixels, max_pixels=max_pixels)
+    min_pixels = 256 * 28 * 28
+    max_pixels = 1280 * 28 * 28
+    processor = AutoProcessor.from_pretrained(
+        "Qwen/Qwen2.5-VL-7B-Instruct", min_pixels=min_pixels, max_pixels=max_pixels
+    )
 except Exception as e:
     print(e)
