@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.0-cudnn-devel-ubuntu24.04 as builder
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04 as builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -41,15 +41,14 @@ RUN apt-get update && \
 && rm -rf /tmp/tmp* \
 && rm -iRf /root/.cache
 
-RUN pip3 install --break-system-packages torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu124
+RUN pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+RUN pip3 install xformers==0.0.22 opencv-python-headless tqdm imageio einops scipy timm ninja numpy kornia huggingface-hub
+RUN pip3 install torch-scatter -f https://data.pyg.org/whl/torch-2.0.1+cu118.html
+
 
 COPY dependencies dependencies
 
-COPY requirements.txt .
-RUN pip3 install --break-system-packages -r requirements.txt
 
-RUN cd dependencies/gradio-rerun-viewer && pip install --break-system-packages .
-RUN cd dependencies/UniDepth/unidepth/ops/knn/ && python3 setup.py install
 RUN cd dependencies/mega-sam/base && python3 setup.py install
 
 COPY preload.py .
